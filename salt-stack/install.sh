@@ -145,13 +145,13 @@ function salt_master_config()
 	echo -e "file_roots:\n  base:\n    - /srv/salt" > /etc/salt/master.d/fileserver.conf
 	echo -e "fileserver_backend:\n  - gitfs\n  - roots\n" >> /etc/salt/master.d/fileserver.conf
 	echo -e "gitfs_provider: pygit2\n" >> /etc/salt/master.d/fileserver.conf
-	echo -e "gitfs_remotes:\n  - $GIT_URL:" >> /etc/salt/master.d/fileserver.conf
+	echo -e "gitfs_remotes:\n  - ssh://$GIT_URL:" >> /etc/salt/master.d/fileserver.conf
 	echo -e "      - pubkey: ${PUB_KEY}" >> /etc/salt/master.d/fileserver.conf
 	echo -e "      - privkey: ${PRIV_KEY}" >> /etc/salt/master.d/fileserver.conf
 	echo -e "      - root: salt" >> /etc/salt/master.d/fileserver.conf
 	
 	## Salt fileserver conf
-	echo -e "ext_pillar:\n  - git:\n    - master ${GIT_URL}:" > /etc/salt/master.d/pillar.conf
+	echo -e "ext_pillar:\n  - git:\n    - ssh://master ${GIT_URL}:" > /etc/salt/master.d/pillar.conf
 	echo -e "      - pubkey: ${PUB_KEY}" >> /etc/salt/master.d/pillar.conf
 	echo -e "      - privkey: ${PRIV_KEY}" >> /etc/salt/master.d/pillar.conf
 	echo -e "      - root: pillar\n" >> /etc/salt/master.d/pillar.conf
